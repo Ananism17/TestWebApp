@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+@model IEnumerable<Item>
+
+
+@{
+    ViewData["Title"] = "List of Items";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-info">
+                                <p class="card-text">
+                                    <h5 class="card-title">
+                                        @item.Name
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="@("~/images/"+ item.ItemImageURL)" asp-append-version="true" width="100%" alt="@item.Name">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+
+                                <p class="card-text"><b>Name: </b>@item.Name</p>
+                                <p class="card-text"><b>Price: </b>@item.Price</p>
+                                <p class="card-text"><b>Amount: </b>@item.Amount</p>
+                                <p class="card-text"><b>In Stock: </b>@item.Stock</p>
+                                <p class="card-text"><b>In Sell: </b>@item.Sell</p>
+                            </div>
+                        </div>
+                        @*<div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-primary float-right" asp-controller="Items" asp-action="Edit" asp-route-id="@item.ItemId">Update</a>
+                                    <a class="btn btn-danger text-white" asp-action="Details" asp-route-id="@item.ItemId">Details</a>
+                                </p>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">No Access</h1>
+        <p>Please Login if you want to add products. If you don't have an account, register first.</p>
+    </div>
+}

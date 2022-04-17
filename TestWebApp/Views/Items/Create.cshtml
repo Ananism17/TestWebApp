@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@model Item
+
+
+@{
+    ViewData["Title"] = "List of Items";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="display-4">Add new Product</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label"></label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group">
+                        <label asp-for="Stock" class="control-label"></label>
+                        <input asp-for="Stock" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group">
+                        <label asp-for="Sell" class="control-label"></label>
+                        <input asp-for="Sell" class="form-control" />
+                        <span asp-validation-for="Sell" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageFile" class="control-label"></label>
+                        <input asp-for="ImageFile" class="form-control" accept="image/p*" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-5">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All Products</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+
+
+else 
+{
+    <div class="text-center">
+        <h1 class="display-4">No Access</h1>
+        <p>Please Login if you want to add products. If you don't have an account, register first.</p>
+    </div>
+}
+

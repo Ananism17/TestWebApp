@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+@model IEnumerable<Item>
+
+
+@{
+    ViewData["Title"] = "List of Items";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="card ml-2" style="width:300px">
+            <div class="card-body">
+                <h4 class="card-title">@item.Name</h4>
+                <p class="card-text">Quantity in Stock: @item.Stock</p>
+                <a href="#" class="btn btn-primary">Update</a>
+            </div>
+        </div>
+        }
+    </div>
+
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">No Access</h1>
+        <p>Please Login if you want to add products. If you don't have an account, register first.</p>
+    </div>
+}
